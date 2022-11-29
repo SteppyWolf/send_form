@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+	<title>Document</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="row">
+			<form action="mail.php" enctype="multipart/form-data" method="post" id="form">
+				<p>Имя</p>
+				<input class="form-control" placeholder="Представьтесь" name="name" type="text">
+
+
+				<!-- <p>Email</p>
+				<input class="form-control" placeholder="Укажите почту" name="email" type="text"> -->
+
+				<p>Телефон</p>
+				<input class="form-control" type="text" placeholder="Ваши контакты" name="phone">
+
+				<p>Сообщение</p>
+				<textarea class="form-control" name="text"></textarea>
+
+				<!-- <div class="input-group mb-3" style="margin-top: 20px;">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroupFileAddon01">Выбрать</span>
+					</div>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="inputGroupFile01"
+							aria-describedby="inputGroupFileAddon01" name="myfile[]">
+						<label class="custom-file-label" for="inputGroupFile01">Загрузить файл</label>
+					</div>
+				</div> -->
+
+
+				<!-- <p>Прикрепить файлы</p>
+				<input class="form-control" type="file" name="" multiple id="myfile"> -->
+
+
+				<div class="form-group form-row">
+					<input class="btn btn-primary" value="Отправить" type="submit">
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		// Отправка данных на сервер
+		function send(event, php) {
+			console.log("Отправка запроса");
+			event.preventDefault ? event.preventDefault() : event.returnValue = false;
+			var req = new XMLHttpRequest();
+			req.open('POST', php, true);
+			req.onload = function () {
+				if (req.status >= 200 && req.status < 400) {
+					json = JSON.parse(this.response); // Ебанный internet explorer 11
+					console.log(json);
+
+					// ЗДЕСЬ УКАЗЫВАЕМ ДЕЙСТВИЯ В СЛУЧАЕ УСПЕХА ИЛИ НЕУДАЧИ
+					if (json.result == "success") {
+						// Если сообщение отправлено
+						alert("Сообщение отправлено");
+					} else {
+						// Если произошла ошибка
+						alert("Ошибка. Сообщение не отправлено");
+					}
+					// Если не удалось связаться с php файлом
+				} else {
+					alert("Ошибка сервера. Номер: " + req.status);
+				}
+			};
+
+			// Если не удалось отправить запрос. Стоит блок на хостинге
+			req.onerror = function () {
+				alert("Ошибка отправки запроса");
+			};
+			req.send(new FormData(event.target));
+		}
+	</script>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+		integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
+	</script>
+</body>
+
+</html>
