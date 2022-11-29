@@ -96,4 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Закрытие подключения к базе данных
     mysqli_close($mysqli);
+    
+
+    
 }
